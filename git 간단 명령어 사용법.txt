@@ -15,7 +15,7 @@ git add .
 git commit -m "message"
 
 6. 실제로 git에 PUSH를 요청
-git push origin master +master
+git push origin master master
 
 
 
