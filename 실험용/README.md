@@ -1,2 +1,1 @@
-# MyBuilding
-C언어기말
+My_Universe
