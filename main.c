@@ -14,10 +14,14 @@ int main()
 
 	int galaxy_num;
 	int planet_num;
+	int selection;
 
 	int terran;
 	int protoss;
 	int zerg;
+
+	char brood;
+	int population;
 	
 	printf("내 우주의 은하 수를 결정하세요 : ");
 	scanf("%d", &galaxy_num);
@@ -33,11 +37,13 @@ int main()
 
 		init_Galaxy(g, planet_num);
 
-		printf("테란 행성의 수를 결정하세요 : ");
+		printf("직접 설정할 행성의 수를 결정하세요 : ");
+		scanf("%d", &selection);
+		printf("자동 생성될 테란 행성의 수를 결정하세요 : ");
 		scanf("%d", &terran);
-		printf("프로토스 행성의 수를 결정하세요 : ");
+		printf("자동 생성될 프로토스 행성의 수를 결정하세요 : ");
 		scanf("%d", &protoss);
-		printf("저그 행성의 수를 결정하세요 : ");
+		printf("자동 생성될 저그 행성의 수를 결정하세요 : ");
 		scanf("%d", &zerg);
 
 		//종족별 초기 인구수 설정
@@ -49,9 +55,20 @@ int main()
 		{
 			init_Planet(&(universe.galaxies[i].planets[j]), 'P', 90);
 		}
-		for (int j = terran+protoss; j < planet_num; j++)
+		for (int j = terran+protoss; j < (planet_num)-selection; j++)
 		{
 			init_Planet(&(universe.galaxies[i].planets[j]), 'Z', 110);
+		}
+
+		//행성 직접 설정
+		printf("직접 생성할 행성의 정보를 입력합니다\n");
+		for (int i = 0; i < selection; i++)
+		{
+			printf("brood : ");
+			scanf(" %c", &brood);
+			printf("population : ");
+			scanf("%d", &population);
+			init_Planet(&(universe.galaxies[i].planets[planet_num - selection + i]), brood, population);
 		}
 	}
 
