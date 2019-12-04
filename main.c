@@ -62,13 +62,15 @@ int main()
 
 		//행성 직접 설정
 		printf("직접 생성할 행성의 정보를 입력합니다\n");
-		for (int i = 0; i < selection; i++)
+		for (int j = 0; j < selection; j++)
 		{
+			printf("#%d\n", j + 1);
 			printf("brood : ");
-			scanf(" %c", &brood);
+			getchar();
+			scanf("%c", &brood);
 			printf("population : ");
 			scanf("%d", &population);
-			init_Planet(&(universe.galaxies[i].planets[planet_num - selection + i]), brood, population);
+			init_Planet(&(universe.galaxies[i].planets[planet_num - selection + j]), brood, population);
 		}
 	}
 
