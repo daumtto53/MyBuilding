@@ -36,7 +36,7 @@ void makePlanet(Planet** p, int galaxy)
 
 void make_Universe()
 {
-	Planet** p;
+	Planet** p; //유니버스
 
 	int i;
 	int cgn; //본인이 플레이하려는 은하
@@ -176,21 +176,21 @@ void planet_init(Planet* p, int planet_num)
 		switch (p[i].race)
 		{
 		case 1:
-			p[i].population = 2000;
+			p[i].population = 3000;
 			p[i].attk_p = 0;
 			p[i].a_or_d = 0;
 			p[i].dead = 0;
 			p[i].race_name = "Zerg";
 			break;
 		case 2:
-			p[i].population = 2000;
+			p[i].population = 1500;
 			p[i].attk_p = 0;
 			p[i].a_or_d = 0;
 			p[i].dead = 0;
 			p[i].race_name = "Terran";
 			break;
 		case 3:
-			p[i].population = 2000;
+			p[i].population = 1000;
 			p[i].attk_p = 0;
 			p[i].a_or_d = 0;
 			p[i].dead = 0;
@@ -201,25 +201,25 @@ void planet_init(Planet* p, int planet_num)
 }
 
 //매판 종족별로 인구수 증가시키는 함수
-void change_planet_population(Planet* p, int planet_num)
+void change_planet_population(Planet* p, int planet_num, int k)
 {
 	int i;
 
 	for (i = 0; i < planet_num; i++)
 	{
-		if (p[i].dead == 0)
+		if (p[i].dead == 0 && k != 0)
 		{
 			//디펜스 모드이면 인구수 증가량이 2배(존버 가능)
 			switch (p[i].race)
 			{
 			case 1:
-				p[i].population += 2000 * p[i].a_or_d;
+				p[i].population += 600 * p[i].a_or_d;
 				break;
 			case 2:
-				p[i].population += 1500 * p[i].a_or_d;
+				p[i].population += 300 * p[i].a_or_d;
 				break;
 			case 3:
-				p[i].population += 1000 * p[i].a_or_d;
+				p[i].population += 200 * p[i].a_or_d;
 				break;
 			}
 		}
@@ -242,10 +242,11 @@ void change_planet_status(Planet* p, int planet_num)
 		switch (p[i].a_or_d)
 		{
 		case 1:
-			p[i].attk_p += 20;
+			p[i].attk_p += 13;   //공격 상승인 12보다 1높게
+			p[i].def_p += 6;    //공격하는 사람한테도 어느정도 메리트
 			break;
 		case 2:
-			p[i].attk_p -= 10;
+			p[i].attk_p -= 12;
 			break;
 		default:
 			break;
@@ -296,8 +297,25 @@ void choose_attk_def(Planet* p, int cpn, int planet_num)
 
 	srand((unsigned)time(NULL));
 
-	printf("Choose your next act 1.Attack or 2.Deffence : "); scanf("%d", &ad);
-	p[cpn].a_or_d = ad;
+	if (p[cpn].dead == 0) //dead == 0이 살아있다는 뜻, 1이 죽었다는 뜻
+	{
+		printf("Choose your next act 1.Attack or 2.Deffence : "); scanf("%d", &ad);
+		p[cpn].a_or_d = ad;
+	}
+	if (p[cpn].a_or_d == 1)
+	{
+		while (1)
+		{
+			printf("Choose the planet you want to fight : "); scanf("%d", &enemy);
+			if (p[enemy - 1].dead == 1)
+			{
+				printf("The planet is already doomed \n");
+				continue;
+			}
+			p[cpn].fight = enemy - 1;
+			break;
+		}
+	}
 
 	//나머지 ai들은 임의로 attack 또는 deffence 설정
 	for (i = 0; i < planet_num; i++)
@@ -330,20 +348,6 @@ void choose_attk_def(Planet* p, int cpn, int planet_num)
 			}
 		}
 	}
-	if (p[cpn].a_or_d == 1 && p[cpn].dead == 0)
-	{
-		while (1)
-		{
-			printf("Choose the planet you want to fight : "); scanf("%d", &enemy);
-			if (p[enemy].population <= 0)
-			{
-				printf("The planet is already doomed \n");
-				continue;
-			}
-			p[cpn].fight = enemy - 1;
-			break;
-		}
-	}
 }
 
 //전쟁 함수
@@ -367,8 +371,8 @@ void  battle(Planet* p, int cpn, int planet_num)
 				if (i == cpn) printf("(your planet)");
 				printf(" : win ====> Planet % d : lose \n", enemy + 1);
 
-				p[i].population += 300;
-				p[enemy].population -= 500;
+				p[i].population += 200;
+				p[enemy].population /= 2;  //지는 행성은 인구가 반감.
 			}
 			if (p[i].attk_p < p[enemy].def_p)
 			{
@@ -376,7 +380,7 @@ void  battle(Planet* p, int cpn, int planet_num)
 				if (i == cpn) printf("(your planet)");
 				printf(" : lose ====> Planet % d : win \n", enemy + 1);
 
-				p[i].population -= 500;
+				p[i].population /= 2;
 			}
 			if (p[i].attk_p == p[enemy].def_p)
 			{
@@ -397,16 +401,18 @@ void planet_dead(Planet* p, int planet_num)
 
 	for (i = 0; i < planet_num; i++)
 	{
-		if (p[i].population <= 500)
+		if (p[i].population < 400)
 		{
 			p[i].population = 0;
+			p[i].attk_p = 0;
+			p[i].def_p = 0;
 			p[i].a_or_d = 0;
 			p[i].dead = 1;
 		}
 	}
 }
 
-int game_over(Planet* p, int planet_num)
+int game_over(Planet* p, int cpn, int planet_num)
 {
 	int i;
 	int winner;
@@ -422,7 +428,14 @@ int game_over(Planet* p, int planet_num)
 		{
 			if (p[i].dead == 0) winner = i;
 		}
-		printf("Planet %d Ruled the Universe! \n", winner + 1);
+		if (i == cpn)
+		{
+			printf("Congratulations you are a Slayer! \n");
+		}
+		else
+		{
+			printf("Planet %d Ruled the Universe! \n", winner + 1);
+		}
 		return 1;
 	}
 	return 0;
@@ -432,18 +445,21 @@ int game_over(Planet* p, int planet_num)
 void cosmic_war(Planet *p, int cpn, int planet_num)
 {
 	int gameover;
+	int i = 0; //첫턴에서는 실행하지 않을 함수 제어하기 위해서 생성
 
 	planet_init(p, planet_num);
 	change_planet_status(p, planet_num);
 	
+
 	while (1)
 	{
+		change_planet_population(p, planet_num, i);
+		change_planet_status(p, planet_num);
 		show_planet_status(p, cpn, planet_num);
 		choose_attk_def(p, cpn, planet_num);
+		change_planet_status(p, planet_num);
 		press_anyKey_continue();
 
-		change_planet_population(p, planet_num);
-		change_planet_status(p, planet_num);
 		show_planet_status(p, cpn, planet_num);
 		
 		battle(p, cpn, planet_num);
@@ -452,8 +468,10 @@ void cosmic_war(Planet *p, int cpn, int planet_num)
 		change_planet_status(p, planet_num);
 		press_anyKey_continue();
 
-		gameover = game_over(p, planet_num);
+		gameover = game_over(p, cpn, planet_num);
 
 		if (gameover == 1) break;
+
+		i++;
 	}
 }
