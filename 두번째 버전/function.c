@@ -7,7 +7,7 @@
 
 #include "datatype.h"
 #include "function.h"
-#include "util_func.h"
+#include "util.h"
 
 //갤럭시 생성
 //전체 은하 개수 초기화 => p_addr에 저장.
