@@ -1,8 +1,8 @@
 #pragma once
 
-#define TERRAN 'T'
-#define ZERG 'Z'
-#define PROTOSS 'P'
+#define TERRAN 1
+#define ZERG 2
+#define PROTOSS 3
 
 typedef struct planet
 {
@@ -10,16 +10,18 @@ typedef struct planet
 	int population;
 	double power;
 	double armor;
+	int attack_or_defense;
+	int x,y;
 }Planet;
 
 typedef struct galaxy
 {
-	Planet* planets;
+	Planet* planet_arr;
 	int planet_num;
 }Galaxy;
 
 typedef struct universe
 {
-	Galaxy* galaxies;
+	Galaxy* galaxy_arr;
 	int galaxy_num;
 }Universe;

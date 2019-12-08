@@ -9,7 +9,10 @@ typedef struct planet
 	char brood;
 	int population;
 	double power;
+	double defense;
 	double armor;
+	int attack_or_defense;
+	int x,y;
 }Planet;
 
 typedef struct galaxy
