@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <ctype.h>
 #include "util.h"
 
 void press_anyKey_continue()

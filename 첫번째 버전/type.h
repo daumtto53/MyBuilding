@@ -6,7 +6,7 @@
 
 typedef struct planet
 {
-	char brood;
+	int brood;
 	int population;
 	double power;
 	double armor;
@@ -16,12 +16,12 @@ typedef struct planet
 
 typedef struct galaxy
 {
-	Planet* planet_arr;
+	Planet **planet_arr;
 	int planet_num;
 }Galaxy;
 
 typedef struct universe
 {
-	Galaxy* galaxy_arr;
+	Galaxy **galaxy_arr;
 	int galaxy_num;
 }Universe;
