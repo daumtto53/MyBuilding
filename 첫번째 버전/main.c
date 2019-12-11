@@ -12,8 +12,8 @@
 #define MAX_OBJECT 30
 #define MIN_OBJECT 1
 
-#define MAX_X_COORD 1000
-#define MAX_Y_COORD 1000
+#define MAX_X_COORD 100
+#define MAX_Y_COORD 100
 #define MIN_X_COORD 10
 #define MIN_Y_COORD 10
 
@@ -102,12 +102,72 @@ void show_universe_info(Universe *universe){
 	}
 }
 
+char **makeBoard(void){
+	char **board = (char **)malloc(sizeof(char *) * MAX_Y_COORD + 5 );
+	if(!board){
+		printf("메모리 할당 실패!\n");
+	}
+	for(int i = 0; i < MAX_Y_COORD; i++)
+	{
+		board[i] = (char *)malloc(sizeof(char) * MAX_X_COORD +5);
+		memset (board, ' ' ,MAX_X_COORD);
+	}
+	return board;
+}
+
+
+void setBoardToCircle(char **board, Planet *planet){
+	int x,y;
+	x = planet->x;
+	y = planet->y;
+	board[x+1][y] = '*';	board[x-1][y] = '*';
+	board[x+2][y] = '*';	board[x-2][y] = '*';
+	board[x+3][y] = '*';	board[x+3][y] = '*';
+
+	board[x][y+1] = '*';	board[x][y-1] = '*';
+	board[x][y+2] = '*';	board[x][y-2] = '*';
+	board[x][y+3] = '*';	board[x][y+3] = '*';
+}
+/*
+void Galaxy_coordToCircle(char **board, Universe *univ){
+	
+}
+*/
+void Planet_coordToCircle(char **board, Galaxy *galaxy){
+	int i;
+	Planet *temp;
+	for(i=0; i < galaxy->planet_num;)
+	{
+		temp = galaxy->planet_arr[i];
+		setBoardToCircle(board, temp);
+	}
+}
+
+void show_Board(char **board){
+	int i;
+	int j;
+	for(i=0; i < MAX_Y_COORD + 5; i++)
+	{
+		for(j=0; j < MAX_X_COORD;j++){
+			printf("%c", board[i][j]);
+		}
+		printf("\n");
+	}
+}
+
 int main(){
 	srand(time(NULL));
 	Universe *universe;
 	universe = create_all(universe);
 	show_universe_info(universe);
 	printf("초기화 성공!\n");
+
+	char **board = makeBoard();
+	printf("성공!\n");
+	Planet_coordToCircle(board, universe->galaxy_arr[1]);
+	printf("성공\n");
+	show_Board(board);
+
 }
 
 void race_info()
