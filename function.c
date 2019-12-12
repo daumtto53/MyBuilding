@@ -15,13 +15,13 @@ void init_Planet(Planet *p, char brood, int population)
 
 void init_Galaxy(Galaxy* g, int planet_num)
 {
-	g->planets = (Planet*)malloc(sizeof(Planet) * planet_num);
+	g->planet_arr = (Planet*)malloc(sizeof(Planet) * planet_num);
 	g->planet_num = planet_num;
 }
 
 void init_Universe(Universe* u, int galaxy_num)
 {
-	u->galaxies = (Galaxy*)malloc(sizeof(Galaxy) * galaxy_num);
+	u->galaxy_arr = (Galaxy*)malloc(sizeof(Galaxy) * galaxy_num);
 	u->galaxy_num = galaxy_num;
 }
 
@@ -47,22 +47,22 @@ void set_Ability(Planet* p)
 
 void add_Planet(Galaxy* g, char brood, int population)
 {
-	if (g->planets == NULL)
+	if (g->planet_arr == NULL)
 	{
 		printf("No galaxy\n");
 		return;
 	}
 
-	g->planets = (Planet*)realloc(g->planets, sizeof(Planet) * ((g->planet_num) + 1));
+	g->planet_arr = (Planet*)realloc(g->planet_arr, sizeof(Planet) * ((g->planet_num) + 1));
 
-	if (g->planets == NULL)
+	if (g->planet_arr == NULL)
 	{
 		printf("Planet Addition Failure\n");
 		return;
 	}
 
 	(g->planet_num)++;
-	init_Planet(&(g->planets[g->planet_num - 1]), brood, population);
+	init_Planet(&(g->planet_arr[g->planet_num - 1]), brood, population);
 }
 
 void war(Planet* p1, Planet* p2)
@@ -100,9 +100,9 @@ void winner(Galaxy* g)
 
 	for (int i = 0; i < g->planet_num; i++)
 	{
-		if (g->planets[i].brood == TERRAN) terran++;
-		else if (g->planets[i].brood == PROTOSS) protoss++;
-		else if (g->planets[i].brood == ZERG) zerg++;
+		if (g->planet_arr[i].brood == TERRAN) terran++;
+		else if (g->planet_arr[i].brood == PROTOSS) protoss++;
+		else if (g->planet_arr[i].brood == ZERG) zerg++;
 	}
 
 	//행성 수가 같을 경우 여러 문장 출력
@@ -135,7 +135,7 @@ void print_Galaxy(Galaxy* g)
 	winner(g);
 	for (int i = 0; i < g->planet_num; i++)
 	{
-		print_Planet(&(g->planets[i]));
+		print_Planet(&(g->planet_arr[i]));
 		printf("\n");
 	}
 }
@@ -144,7 +144,7 @@ void print_Universe(Universe* u)
 {
 	for (int i = 0; i < u->galaxy_num; i++)
 	{
-		print_Galaxy(&(u->galaxies[i]));
+		print_Galaxy(&(u->galaxy_arr[i]));
 		printf("\n\n");
 	}
 }
