@@ -39,6 +39,7 @@ typedef struct galaxy
 {
 	Planet **planet_arr;
 	int planet_num;
+    int x,y;
 }Galaxy;
 
 typedef struct universe

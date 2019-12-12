@@ -1,0 +1,124 @@
+#include "show.h"
+
+//create_all 이후 우주가 잘 생성되었는지 확인용.
+void show_universe_info(Universe *universe){
+	Galaxy *current_galaxy;
+	Planet *current_planet;
+	int i,j;
+	for(i=0; i < universe->galaxy_num; i++){
+		printf("%d\n",universe->galaxy_num);
+		current_galaxy = (universe->galaxy_arr)[i];
+		for(j=0; j < (current_galaxy)->planet_num; j++){
+			current_planet = (current_galaxy->planet_arr)[j];
+			printf("%d번째 은하의 %d번째 행성의 인구 수: %d-----\n", i, j, current_planet->population);
+		}
+	}
+}
+
+
+//은하, 행성 시각화용 보드.
+char **makeBoard(void){
+	char **board = (char **)malloc(sizeof(char *) * MAX_Y_COORD + MAX_RADIUS );
+	if(!board){
+		printf("메모리 할당 실패!\n");
+	}
+	for(int i = 0; i < MAX_Y_COORD+MAX_RADIUS; i++)
+	{
+		board[i] = (char *)malloc(sizeof(char) * MAX_X_COORD +MAX_RADIUS);
+		memset (board[i], ' ' , MAX_X_COORD+4);
+		board[MAX_X_COORD + MAX_RADIUS -1] = '\0';
+	}
+	return board;
+}
+
+//은하 시각화용
+void setBoardToSquare(char **board, Galaxy *galaxy){
+	int sizeDiv2 = rand() % MAX_RADIUS;
+
+	int x,y;
+
+	x = galaxy->x - sizeDiv2;
+	y = galaxy->y - sizeDiv2;
+
+	for(int i = x; i <= x + 2*sizeDiv2; i++)
+	{
+		for(int j = y; j <= y + 2 * sizeDiv2; j++)
+		{
+			board[i][j] = '@';
+		}
+	}
+}
+
+void galaxyCoordToSquare(char **board, Universe *universe){
+	int i;
+	Galaxy *temp;
+	for(i=0; i < universe->galaxy_num;)
+	{
+		temp = universe->galaxy_arr[i];
+		setBoardToSquare(board, temp);
+	}
+}
+
+void setBoardToCircle_ver2(char **board, Planet *planet){
+	int radius = planet->population / (MAX_POPULATION/5);
+	int x,y;
+	int center_x, center_y;
+
+	center_x = planet->x;
+	center_y = planet->y;
+
+	x = planet->x - radius;
+	y = planet->y - radius;
+
+	for(int i = x; i <= x + 4*radius; i++)
+	{
+		for(int j = y; j <= y + 2 * radius; j++)
+		{
+			if(2 * (i-center_x)*(i-center_x) + (j-center_y)*(j-center_y) <= radius * radius)
+			{
+				board[i][j] = '*';
+			}
+		}
+	}
+}
+
+void Planet_coordToCircle(char **board, Galaxy *galaxy){
+	int i;
+	Planet *temp;
+	for(i=0; i < galaxy->planet_num;)
+	{
+		temp = galaxy->planet_arr[i];
+		setBoardToCircle_ver2(board, temp);
+	}
+}
+
+void show_Board(char **board){
+	int i;
+	int j;
+
+	for(i=0; i < MAX_Y_COORD ; i++)
+	{
+		for(j=0; j < MAX_X_COORD ; j++){
+			printf("%c", board[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+
+/*
+*초기 행성 시각화용 버전
+void setBoardToCircle(char **board, Planet *planet){
+	int x,y;
+	x = planet->x;
+	y = planet->y;
+
+	board[x+1][y] = '*';	board[x-1][y] = '*';
+	board[x+2][y] = '*';	board[x-2][y] = '*';
+	board[x+3][y] = '*';	board[x+3][y] = '*';
+
+	board[x][y+1] = '*';	board[x][y-1] = '*';
+	board[x][y+2] = '*';	board[x][y-2] = '*';
+	board[x][y+3] = '*';	board[x][y+3] = '*';
+}
+*/

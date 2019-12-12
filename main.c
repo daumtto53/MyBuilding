@@ -17,7 +17,7 @@ int main(){
 	show_universe_info(universe);
 	printf("초기화 성공!\n");
 
-	char **board = makeBoard();
+	char **planetBoard = makeBoard();
 
 
 	Planet *planet = (universe->galaxy_arr)[0]->planet_arr[0];
@@ -26,9 +26,9 @@ int main(){
 	for (int i = 0; i < (universe->galaxy_arr)[0]->planet_num; i++)
 	{	
 		planet = (universe->galaxy_arr)[0]->planet_arr[i];
-		setBoardToCircle_ver2(board, planet);
+		setBoardToCircle_ver2(planetBoard, planet);
 	}
-	show_Board(board);
+	show_Board(planetBoard);
 
 }
 
@@ -40,6 +40,7 @@ void race_info()
 	printf("Protoss : attk 3, def 3 per 100 population / population increase rate 1000 \n");
 	printf("*****************************************************************************\n\n");
 }
+
 /*
 int main()
 {
