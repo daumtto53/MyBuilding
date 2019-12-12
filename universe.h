@@ -7,15 +7,15 @@
 
 #define NAME_LENGTH 8
 
-#define MAX_OBJECT 20
-#define MIN_OBJECT 1
+#define MAX_OBJECT 10
+#define MIN_OBJECT 2
 
 #define MAX_X_COORD 150
 #define MAX_Y_COORD 150
 #define MIN_X_COORD 10
 #define MIN_Y_COORD 10
 
-#define MAX_RADIUS 10
+#define MAX_RADIUS 20
 
 #define MIN_POPULATION 100
 #define MAX_POPULATION 200

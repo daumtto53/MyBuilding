@@ -3,6 +3,9 @@
 //create_all 이후 우주 생성되었을 떄 우주 안의 은하의 정보 보여줌.
 
 void show_universe_info(Universe *universe, char **univ_board){
+
+	printf("여기까지 들어옴\n");
+
     int i;
     printf("전체 은하의 수 : %d \n", universe->galaxy_num);
 	printf("\n");
@@ -11,7 +14,7 @@ void show_universe_info(Universe *universe, char **univ_board){
     {
         printf("은하 %d의 이름 : %s\n",i,  universe->galaxy_arr[0]->name);
     }
-	
+
     show_Board(univ_board);
 }
 
@@ -47,9 +50,9 @@ void show_planet_info(Planet *planet){
     printf("종족: ");   showBroodName(brood);
 
     printf("@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
-    printf("인구 수: %s\n", population);
-    printf("공격력: %s\n", power);
-    printf("방어력: %s\n",  armor);
+    printf("인구 수: %d\n", population);
+    printf("공격력: %d\n", power);
+    printf("방어력: %d\n",  armor);
     printf("현재 공/방 상태: ");    showAttackORDefense(attack_or_defense);
     printf("@@@@@@@@@@@@@@@@@@@@@@@@\n");
     
@@ -73,7 +76,7 @@ char **makeBoard(void){
 
 //은하 시각화용
 void setBoardToSquare(char **board, Galaxy *galaxy){
-	int sizeDiv2 = rand() % MAX_RADIUS;
+	int sizeDiv2 = 1 + rand() % MAX_RADIUS -2;
 
 	int x,y;
 
@@ -92,7 +95,9 @@ void setBoardToSquare(char **board, Galaxy *galaxy){
 void Galaxy_coordToSquare(char **board, Universe *universe){
 	int i;
 	Galaxy *temp;
-	for(i=0; i < universe->galaxy_num;)
+	
+	//우주의 은하 수
+	for(i=0; i < universe->galaxy_num; i++)
 	{
 		temp = universe->galaxy_arr[i];
 		setBoardToSquare(board, temp);
@@ -103,7 +108,8 @@ void Galaxy_coordToSquare(char **board, Universe *universe){
 
 //행성 시각화용
 void setBoardToCircle_ver2(char **board, Planet *planet){
-	int radius = planet->population / (MAX_POPULATION/5);
+	
+	int radius = planet->population / 20;
 	int x,y;
 	int center_x, center_y;
 
@@ -113,11 +119,11 @@ void setBoardToCircle_ver2(char **board, Planet *planet){
 	x = planet->x - radius;
 	y = planet->y - radius;
 
-	for(int i = x; i <= x + 4*radius; i++)
+	for(int i = x; i <= x + 2 *radius; i++)
 	{
 		for(int j = y; j <= y + 2 * radius; j++)
 		{
-			if(2 * (i-center_x)*(i-center_x) + (j-center_y)*(j-center_y) <= radius * radius)
+			if((i-center_x)*(i-center_x) + (j-center_y)*(j-center_y) <= radius * radius)
 			{
 				board[i][j] = '*';
 			}
@@ -128,12 +134,15 @@ void setBoardToCircle_ver2(char **board, Planet *planet){
 void Planet_coordToCircle(char **board, Galaxy *galaxy){
 	int i;
 	Planet *temp;
-	for(i=0; i < galaxy->planet_num;)
+
+	for(i=0; i < galaxy->planet_num;i++)
 	{
 		temp = galaxy->planet_arr[i];
 		setBoardToCircle_ver2(board, temp);
 	}
 }
+
+
 
 void show_Board(char **board){
 	int i;

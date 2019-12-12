@@ -21,6 +21,10 @@ Universe *create_Universe(Universe *universe){
 //은하 만들기
 Galaxy *create_Galaxy(void){
 	Galaxy *temp_galaxy = (Galaxy *)malloc(sizeof(Galaxy));
+	if(!temp_galaxy)
+	{
+		printf("은하 메모리 분배 실패\n");
+	}
 	temp_galaxy->planet_num = get_Rand_Btw(MIN_OBJECT, MAX_OBJECT);
 
 	temp_galaxy->x = get_Rand_Btw(MIN_X_COORD,MAX_X_COORD);
@@ -38,7 +42,7 @@ Planet *create_Planet(void){
 	Planet *planet = (Planet *)malloc(sizeof(Planet));
 	if(!planet)
 	{
-		printf("메모리 분배 실패\n");
+		printf("행성 메모리 분배 실패\n");
 	}
 	return planet;
 }
@@ -77,6 +81,7 @@ Universe *create_all(Universe *universe){
 			(current_galaxy->planet_arr)[j] = current_planet;
 		}
 	}
+
 	printf("######\t우주 생성 완료!!!\t######\n");
 	return universe;
 }

@@ -3,7 +3,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <time.h>
-
+#include <Windows.h>
 //#include "function.h"
 
 #include "util.h"
@@ -23,16 +23,22 @@ int main(){
 
 	Universe *universe = NULL;
 	universe = create_all(universe);
-	
+
+	int galaxy_num;
+
+	Planet_coordToCircle(planetBoard,(universe->galaxy_arr)[0]);
+	show_Board(planetBoard);
+	printf("끝");
+	Sleep(2000);
+	show_galaxy_info(universe->galaxy_arr[0], galaxyBoard);
 
 	Galaxy_coordToSquare(galaxyBoard, universe);
-	show_universe_info(universe,galaxyBoard);
+	show_universe_info(universe, galaxyBoard);
+	
+	
+	
 
-	printf("어떤 은하를 선택하시겠습니까?\n");
-	scanf("%d\n", &(player.player_galaxy));
 
-	Planet_coordToCircle(planetBoard,universe->galaxy_arr[player.player_galaxy-1]);
-	show_galaxy_info(universe->galaxy_arr[player.player_galaxy-1], planetBoard);
 
 }
 
