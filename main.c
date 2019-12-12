@@ -8,27 +8,31 @@
 
 #include "util.h"
 #include "universe.h"
+#include "player.h"
+#include "show.h"
 
 //컨셉 : 
 int main(){
 	srand(time(NULL));
-	Universe *universe = NULL;
-	universe = create_all(universe);
-	show_universe_info(universe);
-	printf("초기화 성공!\n");
+
+	Player player;
+	int chosen;
 
 	char **planetBoard = makeBoard();
 	char **galaxyBoard = makeBoard();
 
-	Planet *planet = (universe->galaxy_arr)[0]->planet_arr[0];
+	Universe *universe = NULL;
+	universe = create_all(universe);
+	
 
-	printf("galaxy's planet number: %d\n", universe->galaxy_arr[0]->planet_num);
-	for (int i = 0; i < (universe->galaxy_arr)[0]->planet_num; i++)
-	{	
-		planet = (universe->galaxy_arr)[0]->planet_arr[i];
-		setBoardToCircle_ver2(planetBoard, planet);
-	}
-	show_Board(planetBoard);
+	Galaxy_coordToSquare(galaxyBoard, universe);
+	show_universe_info(universe,galaxyBoard);
+
+	printf("어떤 은하를 선택하시겠습니까?\n");
+	scanf("%d\n", &(player.player_galaxy));
+
+	Planet_coordToCircle(planetBoard,universe->galaxy_arr[player.player_galaxy-1]);
+	show_galaxy_info(universe->galaxy_arr[player.player_galaxy-1], planetBoard);
 
 }
 

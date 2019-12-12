@@ -5,19 +5,21 @@
 void show_universe_info(Universe *universe, char **univ_board){
     int i;
     printf("전체 은하의 수 : %d \n", universe->galaxy_num);
-    show_Board(univ_board);
-    
-    printf("\n");
+	printf("\n");
+
     for(i=0; i < universe->galaxy_num; i++)
     {
         printf("은하 %d의 이름 : %s\n",i,  universe->galaxy_arr[0]->name);
     }
+	
+    show_Board(univ_board);
 }
 
 void show_galaxy_info(Galaxy *galaxy, char **galaxy_board){
     int i;
     printf("전체 행성의 수 : %d \n", galaxy->planet_num);
     printf("\n");
+
     for(i=0; i < galaxy->planet_num; i++)
     {
     printf("은하 %d의 이름 : %s\n",i,  galaxy->planet_arr[0]->name);
@@ -87,7 +89,7 @@ void setBoardToSquare(char **board, Galaxy *galaxy){
 	}
 }
 
-void galaxyCoordToSquare(char **board, Universe *universe){
+void Galaxy_coordToSquare(char **board, Universe *universe){
 	int i;
 	Galaxy *temp;
 	for(i=0; i < universe->galaxy_num;)
@@ -97,6 +99,9 @@ void galaxyCoordToSquare(char **board, Universe *universe){
 	}
 }
 
+
+
+//행성 시각화용
 void setBoardToCircle_ver2(char **board, Planet *planet){
 	int radius = planet->population / (MAX_POPULATION/5);
 	int x,y;

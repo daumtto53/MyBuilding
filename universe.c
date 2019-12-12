@@ -36,11 +36,16 @@ Galaxy *create_Galaxy(void){
 //행성 만들기
 Planet *create_Planet(void){
 	Planet *planet = (Planet *)malloc(sizeof(Planet));
+	if(!planet)
+	{
+		printf("메모리 분배 실패\n");
+	}
 	return planet;
 }
 
 //행성 정보 랜덤하게 초기화
 Planet *init_Planet(Planet *planet){
+	printf("행성 초기화\n");
 	planet->name = make_Random_Name(NAME_LENGTH);
 	planet->brood = get_Rand_Btw(TERRAN,PROTOSS);
 	planet->population = get_Rand_Btw(MIN_POPULATION, MAX_POPULATION);	
