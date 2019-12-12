@@ -3,8 +3,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <Windows.h>
 #include <ctype.h>
+
 #include "util.h"
+
+void gotoxy(int x, int y)
+{
+	COORD pos = { x,y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
 
 void press_anyKey_continue()
 {

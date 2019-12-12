@@ -33,11 +33,14 @@ int main(){
 	Planet_coordToCircle(planetBoard, player->player_galaxy);
 	show_galaxy_info(player->player_galaxy, planetBoard);
 
+	//모든 초기화 과정 끝.
 
-	while (1) {
+	printf("게임을 시작하시려면 키를 입력하세요\n");
+	press_anyKey_continue();
+	//게임의 인트로 부분 보여줌.
+	show_intro();
 
-		printf("시뮬레이션을 시작합니다!");
-	}
+	
 
 
 }

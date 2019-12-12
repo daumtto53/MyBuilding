@@ -15,5 +15,7 @@ char *make_Random_Name(int len);
 void showBroodName(int i);
 void showAttackORDefense(int i);
 int askNumBtw(int start, int end);
+void gotoxy(int x, int y);
+
 
 #endif
