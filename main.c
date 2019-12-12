@@ -5,8 +5,9 @@
 #include <time.h>
 
 //#include "function.h"
-#include "type.h"
+
 #include "util.h"
+#include "type.h"
 
 //만들 수 있는 모든 object들
 #define MAX_OBJECT 30
