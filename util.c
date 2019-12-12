@@ -31,6 +31,21 @@ int get_String(char *strArr, int maxLen)
     return i;
 }
 
+//start부터 end까지 숫자 입력받고, 미만, 초과면 다시 입력받는 입력용 함수.
+int askNumBtw(int start, int end)
+{
+	int num = -21312313;
+	do
+	{
+		printf("%d부터 %d까지의 숫자를 입력해 주세요\n", start, end);
+		scanf("%d", &num);
+	} while (!(num >= start && num <= end));
+
+	return num;
+}
+
+
+
 
 //scanf(%d) ???? ???? ????????
 //???? ???? ???? ???? ?? -1 ????.
@@ -39,7 +54,6 @@ int get_Integer(char *strArr)
     int num, numLen;
     int i;
 
-    printf("???? ???? : ");
     numLen = get_String(strArr, INT_LEN);
     printf("\n");
     
@@ -79,8 +93,9 @@ char *make_Random_Name(int len){
 
     int num;
     int i;
-    num = (rand() % 74) + 48;
+    //srand(time(NULL));
     for(i=0; i < len; i ++){
+		num = (rand() % 74) + 48;
         temp_name[i] = num;
     }
     return temp_name;

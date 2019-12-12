@@ -1,6 +1,9 @@
 #include "universe.h"
 
 typedef struct player{
-    int player_galaxy;
-    int player_planet;
+	Galaxy *player_galaxy;
+	Planet *player_planet;
 } Player;
+
+void getPlayerPlanet(Player *player, Galaxy *galaxy);
+void getPlayerGalaxy(Player *player, Universe *universe);

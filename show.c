@@ -4,15 +4,13 @@
 
 void show_universe_info(Universe *universe, char **univ_board){
 
-	printf("여기까지 들어옴\n");
-
     int i;
     printf("전체 은하의 수 : %d \n", universe->galaxy_num);
 	printf("\n");
 
     for(i=0; i < universe->galaxy_num; i++)
     {
-        printf("은하 %d의 이름 : %s\n",i,  universe->galaxy_arr[0]->name);
+        printf("은하 %d의 이름 : %s\n",i,  universe->galaxy_arr[i]->name);
     }
 
     show_Board(univ_board);
@@ -25,12 +23,10 @@ void show_galaxy_info(Galaxy *galaxy, char **galaxy_board){
 
     for(i=0; i < galaxy->planet_num; i++)
     {
-    printf("은하 %d의 이름 : %s\n",i,  galaxy->planet_arr[0]->name);
+    printf("은하 %d의 이름 : %s\n",i,  galaxy->planet_arr[i]->name);
     }
 
     show_Board(galaxy_board);
-
-    
 }
 
 //단일 행성의 info들
@@ -55,7 +51,7 @@ void show_planet_info(Planet *planet){
     printf("방어력: %d\n",  armor);
     printf("현재 공/방 상태: ");    showAttackORDefense(attack_or_defense);
     printf("@@@@@@@@@@@@@@@@@@@@@@@@\n");
-    
+
 }
 
 
@@ -76,7 +72,7 @@ char **makeBoard(void){
 
 //은하 시각화용
 void setBoardToSquare(char **board, Galaxy *galaxy){
-	int sizeDiv2 = 1 + rand() % MAX_RADIUS -2;
+	int sizeDiv2 = 1 + rand() % (MAX_RADIUS - 2) ;
 
 	int x,y;
 
@@ -100,16 +96,15 @@ void Galaxy_coordToSquare(char **board, Universe *universe){
 	for(i=0; i < universe->galaxy_num; i++)
 	{
 		temp = universe->galaxy_arr[i];
+		printf("d");
 		setBoardToSquare(board, temp);
 	}
 }
 
-
-
 //행성 시각화용
 void setBoardToCircle_ver2(char **board, Planet *planet){
 	
-	int radius = planet->population / 20;
+	int radius = planet->population / 30;
 	int x,y;
 	int center_x, center_y;
 
@@ -135,7 +130,7 @@ void Planet_coordToCircle(char **board, Galaxy *galaxy){
 	int i;
 	Planet *temp;
 
-	for(i=0; i < galaxy->planet_num;i++)
+	for(i=0; i < galaxy->planet_num; i++)
 	{
 		temp = galaxy->planet_arr[i];
 		setBoardToCircle_ver2(board, temp);
@@ -147,14 +142,17 @@ void Planet_coordToCircle(char **board, Galaxy *galaxy){
 void show_Board(char **board){
 	int i;
 	int j;
-
+	printf("##############################################################################################\n");
 	for(i=0; i < MAX_Y_COORD ; i++)
 	{
+		printf("#");
 		for(j=0; j < MAX_X_COORD ; j++){
 			printf("%c", board[i][j]);
 		}
+		printf("#");
 		printf("\n");
 	}
+	printf("##############################################################################################\n");
 }
 
 

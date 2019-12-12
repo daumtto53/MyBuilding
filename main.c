@@ -15,8 +15,7 @@
 int main(){
 	srand(time(NULL));
 
-	Player player;
-	int chosen;
+	Player *player = (Player *)malloc(sizeof(Player));
 
 	char **planetBoard = makeBoard();
 	char **galaxyBoard = makeBoard();
@@ -24,23 +23,25 @@ int main(){
 	Universe *universe = NULL;
 	universe = create_all(universe);
 
-	int galaxy_num;
-
-	Planet_coordToCircle(planetBoard,(universe->galaxy_arr)[0]);
-	show_Board(planetBoard);
-	printf("끝");
-	Sleep(2000);
-	show_galaxy_info(universe->galaxy_arr[0], galaxyBoard);
-
+	//초기 은하 보여주고 몇번째 은하를 볼건지 물어봄.
 	Galaxy_coordToSquare(galaxyBoard, universe);
 	show_universe_info(universe, galaxyBoard);
-	
-	
-	
+	getPlayerGalaxy(player, universe);
+	Sleep(3000);
+	system("cls");
+	//선택한 은하의 행성을 보여줌.
+	Planet_coordToCircle(planetBoard, player->player_galaxy);
+	show_galaxy_info(player->player_galaxy, planetBoard);
 
+
+	while (1) {
+
+		printf("시뮬레이션을 시작합니다!");
+	}
 
 
 }
+
 
 void race_info()
 {
