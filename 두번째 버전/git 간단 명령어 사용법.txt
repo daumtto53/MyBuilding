@@ -1,0 +1,37 @@
+1. Root Folder 연결
+git init
+git remote add origin (repository address)
+
+2. Pull(git repository-> 로컬 폴더 파일)
+git pull origin master
+
+3. 현재 git과의 상태 체크
+git status
+
+4. 변경된 파일들을 모두 Tracking
+git add .
+
+5. 인식 할 수 있는 commit을 달아줍니다.
+git commit -m "message"
+
+6. 실제로 git에 PUSH를 요청
+git push origin master
+
+
+
+--정리--
+사전 작업(로컬 폴더 안에 숨김파일로 .git폴더 생성됩니다.):
+git init
+git remote add origin (repository address)
+
+Pull:
+git pull origin master
+
+Push:
+git status
+git add .
+git commit -m "message"
+git push origin master
+
+
+(참고영상: https://www.youtube.com/watch?v=tC8Xj_Bf8Fw&feature=youtu.be)

@@ -17,7 +17,15 @@ void show_universe_info(Universe *universe, char **univ_board){
 void show_galaxy_info(Galaxy *galaxy, char **galaxy_board){
     int i;
     printf("전체 행성의 수 : %d \n", galaxy->planet_num);
+    printf("\n");
+    for(i=0; i < galaxy->planet_num; i++)
+    {
+    printf("은하 %d의 이름 : %s\n",i,  galaxy->planet_arr[0]->name);
+    }
+
     show_Board(galaxy_board);
+
+    
 }
 
 //단일 행성의 info들
@@ -34,15 +42,14 @@ void show_planet_info(Planet *planet){
 
     printf("@@@@@@@@@@@@   행성 %s   @@@@@@@@@@\n", p->name);
     printf("이름: %s\n", p->name);
-    printf("종족: %s\n", getBroodName(p->brood));
+    printf("종족: ");   showBroodName(brood);
 
     printf("@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
     printf("인구 수: %s\n", population);
     printf("공격력: %s\n", power);
     printf("방어력: %s\n",  armor);
-    printf("현재 공/방 상태: %s\n\n", attack_or_defense);
+    printf("현재 공/방 상태: ");    showAttackORDefense(attack_or_defense);
     printf("@@@@@@@@@@@@@@@@@@@@@@@@\n");
-
     
 }
 

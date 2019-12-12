@@ -18,7 +18,7 @@ int main(){
 	printf("초기화 성공!\n");
 
 	char **planetBoard = makeBoard();
-
+	char **galaxyBoard = makeBoard();
 
 	Planet *planet = (universe->galaxy_arr)[0]->planet_arr[0];
 

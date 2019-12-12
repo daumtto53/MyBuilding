@@ -12,6 +12,7 @@ int get_Integer_Btw(int begin, int end);
 int get_Rand_Btw(int begin, int end);
 void press_anyKey_continue();
 char *make_Random_Name(int len);
-char *getBroodName(int i);
+void showBroodName(int i);
+void showAttackORDefense(int i);
 
 #endif
