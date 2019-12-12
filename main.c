@@ -178,6 +178,8 @@ void race_info()
 	printf("Protoss : attk 3, def 3 per 100 population / population increase rate 1000 \n");
 	printf("*****************************************************************************\n\n");
 }
+
+
 /*
 int main()
 {
