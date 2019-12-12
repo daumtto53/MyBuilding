@@ -59,6 +59,7 @@ Planet *init_Planet(Planet *planet){
 	planet->attack_or_defense = get_Rand_Btw(ATTACK_MODE, DEFENSE_MODE);
 	planet->x = get_Rand_Btw(MIN_X_COORD, MAX_X_COORD);	
 	planet->y = get_Rand_Btw(MIN_Y_COORD, MAX_Y_COORD);
+	return planet;
 }
 
 
@@ -102,16 +103,21 @@ void show_universe_info(Universe *universe){
 	}
 }
 
+
+
 char **makeBoard(void){
 	char **board = (char **)malloc(sizeof(char *) * MAX_Y_COORD + 5 );
 	if(!board){
 		printf("메모리 할당 실패!\n");
 	}
-	for(int i = 0; i < MAX_Y_COORD; i++)
+	for(int i = 0; i < MAX_Y_COORD+4; i++)
 	{
 		board[i] = (char *)malloc(sizeof(char) * MAX_X_COORD +5);
-		memset (board, ' ' ,MAX_X_COORD);
+		memset (board[i], ' ' , MAX_X_COORD+4);
+		board[MAX_X_COORD + 5 -1] = '\0';
 	}
+	board[MAX_Y_COORD + 4] = '\0';
+
 	return board;
 }
 
@@ -120,6 +126,7 @@ void setBoardToCircle(char **board, Planet *planet){
 	int x,y;
 	x = planet->x;
 	y = planet->y;
+
 	board[x+1][y] = '*';	board[x-1][y] = '*';
 	board[x+2][y] = '*';	board[x-2][y] = '*';
 	board[x+3][y] = '*';	board[x+3][y] = '*';
@@ -128,11 +135,7 @@ void setBoardToCircle(char **board, Planet *planet){
 	board[x][y+2] = '*';	board[x][y-2] = '*';
 	board[x][y+3] = '*';	board[x][y+3] = '*';
 }
-/*
-void Galaxy_coordToCircle(char **board, Universe *univ){
-	
-}
-*/
+
 void Planet_coordToCircle(char **board, Galaxy *galaxy){
 	int i;
 	Planet *temp;
@@ -146,9 +149,10 @@ void Planet_coordToCircle(char **board, Galaxy *galaxy){
 void show_Board(char **board){
 	int i;
 	int j;
-	for(i=0; i < MAX_Y_COORD + 5; i++)
+
+	for(i=0; i < MAX_Y_COORD ; i++)
 	{
-		for(j=0; j < MAX_X_COORD;j++){
+		for(j=0; j < MAX_X_COORD ; j++){
 			printf("%c", board[i][j]);
 		}
 		printf("\n");
@@ -157,17 +161,41 @@ void show_Board(char **board){
 
 int main(){
 	srand(time(NULL));
-	Universe *universe;
+	Universe *universe = NULL;
 	universe = create_all(universe);
 	show_universe_info(universe);
 	printf("초기화 성공!\n");
 
 	char **board = makeBoard();
-	printf("성공!\n");
+
+
+	Planet *planet = (universe->galaxy_arr)[0]->planet_arr[0];
+
+	for (int i = 0; i < (universe->galaxy_arr)[0]->planet_num; i++)
+	{
+		planet = (universe->galaxy_arr)[0]->planet_arr[i];
+		setBoardToCircle(board, planet);
+	}
+	show_Board(board);
+	//
+
+	/*
+	Planet *planet = (universe->galaxy_arr)[0]->planet_arr[0];
+	setBoardToCircle(board, planet);
+	
+	planet = (universe->galaxy_arr)[0]->planet_arr[1];
+	setBoardToCircle(board, planet);
+	show_Board(board);
+	*/
+
+
+	/*
+	show_Board(board);
+	
 	Planet_coordToCircle(board, universe->galaxy_arr[1]);
 	printf("성공\n");
 	show_Board(board);
-
+	*/
 }
 
 void race_info()
@@ -178,8 +206,6 @@ void race_info()
 	printf("Protoss : attk 3, def 3 per 100 population / population increase rate 1000 \n");
 	printf("*****************************************************************************\n\n");
 }
-
-
 /*
 int main()
 {
