@@ -25,6 +25,7 @@ Galaxy *create_Galaxy(void){
 
 	temp_galaxy->x = get_Rand_Btw(MIN_X_COORD,MAX_X_COORD);
 	temp_galaxy->y = get_Rand_Btw(MIN_Y_COORD,MAX_Y_COORD);
+	temp_galaxy->name = make_Random_Name(NAME_LENGTH);
 
 	printf("이 은하의 행성 수 : %d\n\n", temp_galaxy->planet_num);
 	temp_galaxy->planet_arr = (Planet **)malloc(sizeof(Planet *) * temp_galaxy->planet_num);
@@ -40,6 +41,7 @@ Planet *create_Planet(void){
 
 //행성 정보 랜덤하게 초기화
 Planet *init_Planet(Planet *planet){
+	planet->name = make_Random_Name(NAME_LENGTH);
 	planet->brood = get_Rand_Btw(TERRAN,PROTOSS);
 	planet->population = get_Rand_Btw(MIN_POPULATION, MAX_POPULATION);	
 	planet->power = get_Rand_Btw(MIN_POWER, MAX_POWER);	
@@ -73,5 +75,3 @@ Universe *create_all(Universe *universe){
 	printf("######\t우주 생성 완료!!!\t######\n");
 	return universe;
 }
-
-

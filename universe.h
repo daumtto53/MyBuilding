@@ -1,9 +1,11 @@
-
-#pragma once
+#ifndef __UNIVERSE_H__
+#define __UNIVERSE_H__
 
 #define TERRAN 1
 #define ZERG 2
 #define PROTOSS 3
+
+#define NAME_LENGTH 8
 
 #define MAX_OBJECT 20
 #define MIN_OBJECT 1
@@ -27,6 +29,7 @@
 
 typedef struct planet
 {
+	char *name;
 	int brood;
 	int population;
 	double power;
@@ -37,6 +40,7 @@ typedef struct planet
 
 typedef struct galaxy
 {
+	char *name;
 	Planet **planet_arr;
 	int planet_num;
     int x,y;
@@ -53,9 +57,5 @@ Galaxy *create_Galaxy(void);
 Planet *create_Planet(void);
 Planet *init_Planet(Planet *planet);
 Universe *create_all(Universe *universe);
-void show_universe_info(Universe *universe);
-char **makeBoard(void);
-void setBoardToCircle(char **board, Planet *planet);
-void setBoardToCircle_ver2(char **board, Planet *planet);
-void Planet_coordToCircle(char **board, Galaxy *galaxy);
-void show_Board(char **board);
+
+#endif

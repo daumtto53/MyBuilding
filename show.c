@@ -1,18 +1,40 @@
 #include "show.h"
 
-//create_all 이후 우주가 잘 생성되었는지 확인용.
-void show_universe_info(Universe *universe){
-	Galaxy *current_galaxy;
-	Planet *current_planet;
-	int i,j;
-	for(i=0; i < universe->galaxy_num; i++){
-		printf("%d\n",universe->galaxy_num);
-		current_galaxy = (universe->galaxy_arr)[i];
-		for(j=0; j < (current_galaxy)->planet_num; j++){
-			current_planet = (current_galaxy->planet_arr)[j];
-			printf("%d번째 은하의 %d번째 행성의 인구 수: %d-----\n", i, j, current_planet->population);
-		}
-	}
+//create_all 이후 우주 생성되었을 떄 우주 안의 은하의 정보 보여줌.
+
+void show_universe_info(Universe *universe, char **univ_board){
+    int i;
+    printf("전체 은하의 수 : %d \n", universe->galaxy_num);
+    show_Board(univ_board);
+    
+    printf("\n");
+    for(i=0; i < universe->galaxy_num; i++)
+    {
+        printf("은하 %d의 이름 : %s\n",i,  universe->galaxy_arr[0]->name);
+    }
+}
+
+void show_galaxy_info(Galaxy *galaxy, char **galaxy_board){
+    int i;
+    printf("전체 행성의 수 : %d \n", galaxy->planet_num);
+    show_Board(galaxy_board);
+}
+
+//단일 행성의 info들
+void show_planet_info(Planet *planet){
+    Planet *p;
+    char *name;
+	int brood;
+	int population;
+	double power;
+	double armor;
+	int attack_or_defense;
+	int x,y;
+
+    printf("@@@@@@@@@@@@   행성 %s   @@@@@@@@@@\n", p->name);
+    printf("이름: %s\n", p->name);
+    printf("종족: ");
+    
 }
 
 

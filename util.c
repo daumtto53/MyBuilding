@@ -72,3 +72,25 @@ int get_Rand_Btw(int begin, int end)
     num = rand() % (end - begin) + begin;
     return num;
 }
+
+char *make_Random_Name(int len){
+    char *temp_name = malloc(sizeof(char) * len + 1);
+    temp_name[len] = '\0';
+
+    int num;
+    int i;
+    num = (rand() % 74) + 48;
+    for(i=0; i < len; i ++){
+        temp_name[i] = num;
+    }
+    return temp_name;
+}
+
+/*
+#define TERRAN 1
+#define ZERG 2
+#define PROTOSS 3
+*/
+char *returnBroodName(int i){
+    char *
+}
