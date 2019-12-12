@@ -25,6 +25,7 @@ void show_planet_info(Planet *planet){
     Planet *p;
     char *name;
 	int brood;
+
 	int population;
 	double power;
 	double armor;
@@ -33,7 +34,15 @@ void show_planet_info(Planet *planet){
 
     printf("@@@@@@@@@@@@   행성 %s   @@@@@@@@@@\n", p->name);
     printf("이름: %s\n", p->name);
-    printf("종족: ");
+    printf("종족: %s\n", getBroodName(p->brood));
+
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@@\n\n");
+    printf("인구 수: %s\n", population);
+    printf("공격력: %s\n", power);
+    printf("방어력: %s\n",  armor);
+    printf("현재 공/방 상태: %s\n\n", attack_or_defense);
+    printf("@@@@@@@@@@@@@@@@@@@@@@@@\n");
+
     
 }
 

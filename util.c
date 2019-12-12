@@ -91,6 +91,27 @@ char *make_Random_Name(int len){
 #define ZERG 2
 #define PROTOSS 3
 */
-char *returnBroodName(int i){
-    char *
+void showBroodName(int i){
+    switch(i){
+        case 1:
+            printf("Terran\n");
+            break;
+        case 2:
+            printf("ZERG\n");
+            break;
+        case 3:
+            printf("Protoss\n");
+            break;
+    }
+}
+
+void showAttackORDefense(int i){
+    switch(i){
+        case 1:
+            printf("공격\n");
+            break;
+        case 2:
+            printf("방어\n");
+            break;
+    }
 }

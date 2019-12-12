@@ -2,6 +2,7 @@
 #define __SHOW_H__
 
 #include "universe.h"
+#include "util.h"
 
 void show_universe_info(Universe *universe);
 char **makeBoard(void);
