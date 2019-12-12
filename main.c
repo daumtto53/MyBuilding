@@ -10,9 +10,13 @@
 #include "universe.h"
 #include "player.h"
 #include "show.h"
+#include "menu.h"
 
 //컨셉 : 
-int main(){
+int main() {
+
+	enum menuType menu;
+
 	srand(time(NULL));
 
 	Player *player = (Player *)malloc(sizeof(Player));
@@ -39,10 +43,38 @@ int main(){
 	press_anyKey_continue();
 	//게임의 인트로 부분 보여줌.
 	show_intro();
+	showAllMenu();
 
-	
-
-
+		while (1)
+		{
+			switch (menu)
+			{
+				case MOVE_GALAXY:
+					move_galaxy();
+					break;
+				case EARTHQUAKE:
+					earthquake();
+					break;
+				case PLAUGE:
+					plauge();
+					break;
+				case NEW_CIVIL:
+					new_civil();
+					break;
+				case REBEL:
+					rebel();
+					break;
+				case COLLISION:
+					collision();
+					break;
+				case PEACE:
+					peace();
+					break;
+				case END_GAME:
+					end_game();	
+					break;
+			}
+		}
 }
 
 

@@ -19,7 +19,7 @@ void show_intro(void)
 {
 
 	printf("MY STARCRAFT\n");
-	gotoxy(50, 30);
+	gotoxy(10, 20);
 	printf(" __  __             _                            __ _   \n");
 	printf("|  \\/  |           | |                          / _| |  \n");
 	printf("| \\  / |_   _   ___| |_ __ _ _ __ ___ _ __ __ _| |_| |\n");
@@ -31,7 +31,7 @@ void show_intro(void)
 	Sleep(3000);
 	system("cls");
 
-	gotoxy(50, 30);
+	gotoxy(10, 20);
 	printf(" __  __             _                            __ _   \n");
 	printf("|  \\/  |           | |                          / _| |  \n");
 	printf("| \\  / |_   _   ___| |_ __ _ _ __ ___ _ __ __ _| |_| |\n");
@@ -43,7 +43,7 @@ void show_intro(void)
 	Sleep(2000);
 	system("cls");
 
-	gotoxy(50, 30);
+	gotoxy(10, 20);
 	printf(" __  __             _                            __ _   \n");
 	printf("|  \\/  |           | |                          / _| |  \n");
 	printf("| \\  / |_   _   ___| |_ __ _ _ __ ___ _ __ __ _| |_| |\n");
@@ -56,7 +56,7 @@ void show_intro(void)
 	Sleep(1000);
 
 
-	gotoxy(50, 50);
+	gotoxy(10, 20);
 	printf("\n");
 	printf("############################\n");
 	printf("#    게임 설명						#\n\n");
@@ -65,8 +65,11 @@ void show_intro(void)
 	printf("50,60");
 	printf("당신은 이 우주의 신입니다!\n");
 	printf("고대의 3종족이 싸우고 있습니다.\n");
+
+	printf("3종족은 한 턴마다 서로 싸웁니다.\n");
 	printf("당신은 어떤 종족을 살릴지, 멸종시킬 것인지 선택권을 가지고 있습니다!\n");	
-	printf("잘 가지고 놀아보세요!\n");
+	printf("20 턴 동안 잘 가지고 놀아보세요!\n");
+	
 	Sleep(10000);
 	system("cls");
 	
@@ -76,3 +79,21 @@ void show_intro(void)
 	Sleep(1000);
 }
 
+
+void showAllMenu() 
+{
+	printf("원하시는 행동을 입력해 주세요.\n\n");
+
+	printf("□□□□□□□□□□□□□□□□□□□□□□□□□□□□");
+	gotoxy(10, 30);
+	printf("\n");
+	
+	printf("1. 다른 은하로 이동\n");
+	printf("2. 지진 발생 \n");
+	printf("3. 전염병 발생\n");
+	printf("4. 새 문명을 찾습니다!\n");
+	printf("5. 행성에 반란이 일어납니다!\n");
+	printf("6. 행성에 운석이 충돌합니다!\n");
+	printf("7. 평화 협정\n");
+	printf("8.게임 종료\n");
+}
